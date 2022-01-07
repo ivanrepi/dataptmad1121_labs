@@ -28,10 +28,10 @@ ORDER BY TOTAL DESC
 
 --- Challenge 4 - Best Selling Authors Ranking
 
-SELECT TOP 23 a.au_id "AUTHOR ID", a.au_lname "LAST NAME", a.au_fname "FIRST NAME", SUM(s.qty) "TOTAL"
+SELECT TOP 23 a.au_id "AUTHOR ID", a.au_lname "LAST NAME", a.au_fname "FIRST NAME", ISNULL (SUM(s.qty),'0') "TOTAL"
 FROM AUTHORS a 
-JOIN TITLEAUTHOR ta ON a.au_id=ta.au_id
-JOIN TITLES t ON ta.title_id=t.title_id
-JOIN SALES s ON t.title_id = s.title_id
+FULL JOIN TITLEAUTHOR ta ON a.au_id=ta.au_id
+FULL JOIN TITLES t ON ta.title_id=t.title_id
+FULL JOIN SALES s ON t.title_id = s.title_id
 GROUP BY a.au_id, a.au_lname,a.au_fname
 ORDER BY TOTAL DESC
