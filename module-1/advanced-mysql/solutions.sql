@@ -10,8 +10,6 @@ t.title_id,
 FROM TITLEAUTHOR ta, TITLES t, sales s
 WHERE ta.title_id=t.title_id and t.title_id=s.title_id
 
-select * from profits
-
 -----> Step 2: Aggregate the total royalties for each title and author
 
 SELECT 
@@ -34,8 +32,27 @@ WHERE ta.title_id=t.title_id AND t.title_id=s.title_id
 GROUP BY ta.au_id, t.title_id
 ORDER BY profits DESC
 
---- Challenge 2 - Alternative Solution
------> Step 1:
+
+--- Challenge 2 - Alternative Solution (temporary table)
+SELECT 
+ta.au_id, 
+t.title_id, 
+(t.advance * ta.royaltyper / 100) "advance",
+(t.price * s.qty * t.royalty / 100 * ta.royaltyper / 100) "sales_royalty"
+INTO #alternative
+FROM TITLEAUTHOR ta, TITLES t, sales s
+WHERE ta.title_id=t.title_id and t.title_id=s.title_id
+
+SELECT TOP 3
+au_id, title_id,
+sum(advance) + sum (sales_royalty) "profit"
+FROM #alternative
+GROUP by au_id, title_id
+ORDER BY profit DESC
+
+
+--- Challenge 3: Permanent table
+
 SELECT 
 ta.au_id, 
 t.title_id, 
@@ -46,7 +63,7 @@ FROM TITLEAUTHOR ta, TITLES t, sales s
 WHERE ta.title_id=t.title_id and t.title_id=s.title_id
 
 SELECT TOP 3
-au_id, title_id,
+au_id,
 sum(advance) + sum (sales_royalty) "profit"
 FROM profits
 GROUP by au_id, title_id
