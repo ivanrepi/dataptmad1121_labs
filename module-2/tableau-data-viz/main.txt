@@ -1,0 +1,9 @@
+Link to Tableau Public summary graphics:
+
+
+nfl_football_team_stats:
+https://public.tableau.com/app/profile/ivan.repilado/viz/nfl_football_team_stats_16446806070440/Dashboard1?publish=yes
+
+
+countries of the world:
+https://public.tableau.com/app/profile/ivan.repilado/viz/countriesoftheworld_16446849426920/Summary?publish=yes
